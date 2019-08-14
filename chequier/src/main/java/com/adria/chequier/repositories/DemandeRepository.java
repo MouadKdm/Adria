@@ -9,12 +9,34 @@ import java.util.List;
 
 public interface DemandeRepository extends CrudRepository<Demande,Long> {
     Demande findByNumero(Long id );
+    List<Demande> findAll();
+
+    //Find by one param
     List<Demande> findByMotif(String motif);
     List<Demande> findByStatut(String statut);
-    List<Demande> findAll();
-    List<Demande> findByNumeroAndMotifAndStatut(Long numero , String motif , String statut);
-    List<Demande> findByNumeroOrMotifOrStatut(Long numero , String motif , String statut);
-//    List<Demande> findByDate_creationBetween(Date date_creation , Date date_execution);
     List<Demande> findByCompte(Compte compte);
     List<Demande> findByDateCreationBetween(Date date , Date date1);
+
+    //find by two params
+    List<Demande> findByCompteAndMotif(Compte compte , String motif);
+    List<Demande> findByMotifAndStatut(String motif , String statut);
+    List<Demande> findByMotifAndDateCreationBetween(String motif , Date date , Date date1);
+    List<Demande> findByCompteAndStatut(Compte compte , String statut);
+    List<Demande> findByStatutAndDateCreationBetween(String statut , Date date , Date date1);
+    List<Demande> findByCompteAndDateCreationBetween(Compte compte , Date date , Date date1);
+
+
+
+    //find by three params
+//    List<Demande> findByNumeroOrMotifOrStatut(Long numero , String motif , String statut);
+    List<Demande> findByCompteAndMotifAndStatut(Compte compte , String motif , String statut);
+    List<Demande> findByMotifAndStatutAndDateCreationBetween(String motif , String statut , Date date , Date date1);
+    List<Demande> findByCompteAndMotifAndDateCreationBetween(Compte compte , String motif , Date date , Date date1);
+    List<Demande> findByCompteAndStatutAndDateCreationBetween(Compte compte , String statut , Date date , Date date1);
+
+
+    //find by all params
+    List<Demande> findByCompteAndMotifAndStatutAndDateCreationBetween(Compte compte , String motif , String statut, Date date , Date date1);
+
+
 }

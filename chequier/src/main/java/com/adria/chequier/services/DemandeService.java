@@ -80,19 +80,69 @@ public class DemandeService {
         return demandes;
     }
 
-    public List<Demande> getDemandeByNumeroAndMotifAndStatut(Long numero, String motif, String statut) {
-        List<Demande> demandes = demandeRepository.findByNumeroAndMotifAndStatut(numero, motif, statut);
+    public List<Demande> getDemandeByCompteAndMotif(Long numero_compte, String motif) {
+        Compte compte1 = compteRepository.findByNumeroCompte( numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndMotif(compte1, motif);
+        return demandes;
+    }
+    public List<Demande> getDemandeByCompteAndMotifAndStatut(Long numero_compte, String motif , String statut) {
+        Compte compte1 = compteRepository.findByNumeroCompte( numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndMotifAndStatut(compte1, motif,statut);
         return demandes;
     }
 
-    public List<Demande> getDemandeByNumeroOrMotifOrStatut(Long numero, String motif, String statut) {
-        List<Demande> demandes = demandeRepository.findByNumeroOrMotifOrStatut(numero, motif, statut);
-        return demandes;
-    }
+//    public List<Demande> getDemandeByNumeroOrMotifOrStatut(Long numero, String motif, String statut) {
+//        List<Demande> demandes = demandeRepository.findByNumeroOrMotifOrStatut(numero, motif, statut);
+//        return demandes;
+//    }
 
     public List<Demande> getDemandeByDeuxDate(Date date, Date date1) {
         List<Demande> demandes = demandeRepository.findByDateCreationBetween(date, date1);
         return demandes;
 
     }
+    public List<Demande> getDemandeByMotifAndStatut(String motif , String statut){
+        List<Demande> demandes = demandeRepository.findByMotifAndStatut(motif,statut);
+        return demandes;
+    }
+    public List<Demande> getDemandeByMotifAndDAteCreation(String motif , Date date , Date date1){
+        List<Demande> demandes = demandeRepository.findByMotifAndDateCreationBetween(motif,date,date1);
+        return demandes;
+    }
+    public List<Demande> getDemandeByCompteAndStatut(Long numero_compte , String statut){
+        Compte compte1 = compteRepository.findByNumeroCompte(numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndStatut(compte1,statut);
+        return demandes;
+    }
+    public List<Demande> getDemandeByStatutAndDateCreation( String statut , Date date , Date date1){
+        List<Demande> demandes = demandeRepository.findByStatutAndDateCreationBetween(statut,date , date1);
+        return demandes;
+    }
+    public List<Demande> getDemandeByCompteAndDateCreation(Long numero_compte , Date date , Date date1){
+        Compte compte1 = compteRepository.findByNumeroCompte(numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndDateCreationBetween(compte1,date,date1);
+        return demandes;
+    }
+    public List<Demande> getDemandeByMotifAndStatutAndDateCreation(String motif , String statut ,Date date , Date date1){
+        List<Demande> demandes = demandeRepository.findByMotifAndStatutAndDateCreationBetween(motif,statut,date,date1);
+        return demandes;
+    }
+    public List<Demande> getDemandeByCompteAndMotifAndDateCreation(Long numero_compte,String motif , Date date , Date date1){
+        Compte compte1 = compteRepository.findByNumeroCompte(numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndMotifAndDateCreationBetween(compte1,motif,date,date1);
+        return demandes;
+    }
+    public List<Demande> getDemandeByCompteAndStatutAndDateCreation(Long numero_compte , String statut , Date date , Date date1){
+        Compte compte1 = compteRepository.findByNumeroCompte(numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndStatutAndDateCreationBetween(compte1,statut,date,date1);
+        return demandes;
+    }
+
+    public List<Demande> getDemandeByAllParams(Long numero_compte , String motif , String statut , Date date , Date date1){
+        Compte compte1 = compteRepository.findByNumeroCompte(numero_compte);
+        List<Demande> demandes = demandeRepository.findByCompteAndMotifAndStatutAndDateCreationBetween(compte1,motif,statut,date,date1);
+        return demandes;
+    }
+
+
 }

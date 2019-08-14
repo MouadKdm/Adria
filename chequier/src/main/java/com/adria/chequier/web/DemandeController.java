@@ -7,6 +7,7 @@ import com.adria.chequier.services.CompteService;
 import com.adria.chequier.services.DemandeService;
 import com.adria.chequier.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,13 @@ public class DemandeController {
 //        }
 //        return new ResponseEntity<String>("la date d'execution est inferieure que la date d'aujourd'hui",HttpStatus.BAD_REQUEST);
 //    }
+
+    @PostMapping("/add")
+    ResponseEntity<?> CreateNewDemande (@Valid @RequestBody Demande demande , Long numero){
+        Demande demande1 = demandeService.saveOrUpdateDemande(demande);
+        return new ResponseEntity<Demande>(demande1,HttpStatus.CREATED);
+    }
+
     @GetMapping("/id/{numero}")
     public ResponseEntity<?> getDeamndeById(@PathVariable Long numero){
         Demande demande = demandeService.findDemandeById(numero);
@@ -63,31 +71,119 @@ public class DemandeController {
 
         return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
     }
-    @GetMapping("/date_creation/{date}/{date1}")
-    public ResponseEntity<?> getAllDemandesByDate(@PathVariable Date date , @PathVariable Date date1){
+    @GetMapping("/dateCreation/{date}/{date1}")
+    public ResponseEntity<?> getAllDemandesByDate(@PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                  @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1)
+//    ISO.DATE is of yyyy-mm-dd pattern.
+    {
         List<Demande> demandes = demandeService.getDemandeByDeuxDate(date,date1);
         return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
     }
-//    @GetMapping("/statut/{statut}")
-//    public ResponseEntity<?> getDemandeByStatut(@PathVariable String statut){
-//        List<Demande> demandes = demandeService.findDemandeByStatut(statut);
+    @GetMapping("/statut/{statut}")
+    public ResponseEntity<?> getDemandeByStatut(@PathVariable String statut){
+        List<Demande> demandes = demandeService.findDemandeByStatut(statut);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/compte/motif/{numero_compte}/{motif}")
+    public ResponseEntity<?> getDemandeByCompteAndMotif(@PathVariable Long numero_compte,
+                                                        @PathVariable String motif )
+    {
+        List<Demande> demandes = demandeService.getDemandeByCompteAndMotif(numero_compte,motif);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/motif/statut/{motif}/{statut}")
+    public ResponseEntity<?> getDemandeByMotifAndStatut(@PathVariable String motif ,
+                                                        @PathVariable String statut ){
+        List<Demande> demandes = demandeService.getDemandeByMotifAndStatut(motif,statut);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/motif/dateCreation/{motif}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByMotifAndDateCreation(@PathVariable String motif ,
+                                                              @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                              @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1 ){
+        List<Demande> demandes = demandeService.getDemandeByMotifAndDAteCreation(motif,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/compte/statut/{numero_compte}/{statut}")
+    public ResponseEntity<?> getDemandeByCompteAndStatut(@PathVariable Long numero_compte ,
+                                                         @PathVariable String statut)
+    {
+        List<Demande> demandes = demandeService.getDemandeByCompteAndStatut(numero_compte,statut);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+
+    @GetMapping("/statut/dateCreation/{statut}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByStatutAndDateCreation(@PathVariable String statut ,
+                                                              @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                              @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1 ){
+        List<Demande> demandes = demandeService.getDemandeByStatutAndDateCreation(statut,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+
+    @GetMapping("/compte/dateCreation/{numero_compte}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByCompteAndDateCreation(@PathVariable Long numero_compte ,
+                                                               @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                               @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1 ){
+        List<Demande> demandes = demandeService.getDemandeByCompteAndDateCreation(numero_compte,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/motif/statut/dateCreation/{motif}/{statut}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByMotifAndStatutAndDateCreation(@PathVariable String motif,
+                                                                 @PathVariable String statut,
+                                                                 @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                                 @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1  ){
+        List<Demande> demandes = demandeService.getDemandeByMotifAndStatutAndDateCreation(motif,statut,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+
+    @GetMapping("/compte/motif/dateCreation/{numero_compte}/{motif}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByCompteAndMotifAndDateCreation(@PathVariable Long numero_compte,
+                                                                       @PathVariable String motif,
+                                                                       @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                                       @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1  ){
+        List<Demande> demandes = demandeService.getDemandeByCompteAndMotifAndDateCreation(numero_compte,motif,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/compte/statut/dateCreation/{numero_compte}/{statut}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByCompteAndStatutAndDateCreation(@PathVariable Long numero_compte,
+                                                                       @PathVariable String statut,
+                                                                       @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                                       @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1  ){
+        List<Demande> demandes = demandeService.getDemandeByCompteAndStatutAndDateCreation(numero_compte,statut,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+    @GetMapping("/allParams/{numero_compte}/{motif}/{statut}/{date}/{date1}")
+    public ResponseEntity<?> getDemandeByAllParams(@PathVariable Long numero_compte,
+                                                                        @PathVariable String motif,
+                                                                        @PathVariable String statut,
+                                                                        @PathVariable("date") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date ,
+                                                                        @PathVariable("date1") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date date1  ){
+        List<Demande> demandes = demandeService.getDemandeByAllParams(numero_compte,motif,statut,date,date1);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/compte/motif/statut/{numero_compte}/{motif}/{statut}")
+    public ResponseEntity<?> getDemandeByNumeroAndMotifAndStatut(@PathVariable Long numero_compte,
+                                                                 @PathVariable String motif ,
+                                                                 @PathVariable String statut ){
+        List<Demande> demandes = demandeService.getDemandeByCompteAndMotifAndStatut(numero_compte,motif,statut);
+        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+    }
+
+
+//    @GetMapping("/compte/motif/{numero_compte}/{motif}")
+//    public ResponseEntity<?> getDemandeByNumeroAndMotif(@PathVariable Long numero_compte,
+//                                                        @PathVariable String motif ){
+//        List<Demande> demandes = demandeService.getDemandeByCompteAndMotif(numero_compte,motif);
 //        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
 //    }
-    @PostMapping("/add")
-    ResponseEntity<?> CreateNewDemande (@Valid @RequestBody Demande demande , Long numero){
-        Demande demande1 = demandeService.saveOrUpdateDemande(demande);
-        return new ResponseEntity<Demande>(demande1,HttpStatus.CREATED);
-    }
-    @GetMapping("/and/{numero}/{motif}/{statut}")
-    public ResponseEntity<?> getDemandeByNumeroAndMotifAndStatut(@PathVariable Long numero,@PathVariable String motif ,@PathVariable String statut){
-        List<Demande> demandes = demandeService.getDemandeByNumeroAndMotifAndStatut(numero,motif,statut);
-        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
-    }
-    @GetMapping("/or/{numero}/{motif}/{statut}")
-    public ResponseEntity<?> getDemandeByNumeroOrMotifOrStatut(@PathVariable Long numero,@PathVariable String motif ,@PathVariable String statut){
-        List<Demande> demandes = demandeService.getDemandeByNumeroOrMotifOrStatut(numero,motif,statut);
-        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
-    }
+
+//    @GetMapping("/or/{numero}/{motif}/{statut}")
+//    public ResponseEntity<?> getDemandeByNumeroOrMotifOrStatut(@PathVariable Long numero,@PathVariable String motif ,@PathVariable String statut){
+//        List<Demande> demandes = demandeService.getDemandeByNumeroOrMotifOrStatut(numero,motif,statut);
+//        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
+//    }
     @GetMapping("/all")
     public ResponseEntity<?> getAllDemandes(){
         List<Demande> demandes = demandeService.findAllDemande();

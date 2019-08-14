@@ -11,7 +11,7 @@ public  class  Demande {
     private Long numero ;
     @Size(min=4 , max = 10 , message = "please use 4 to 10 characters")
     private String motif ;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dateCreation=  new Date();
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date_execution ;
