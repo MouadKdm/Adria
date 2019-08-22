@@ -2,54 +2,55 @@ package com.adria.chequier.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.engine.internal.Cascade;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
-public class Abonne  {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-    @NotBlank(message = "required")
-    private String username ;
-    @NotBlank(message = "required")
-    private String nom ;
-    @NotBlank(message = "required")
-    private String prenom ;
-    @NotBlank(message = "required")
-    private String password ;
-    @JsonIgnore
-    @OneToMany(mappedBy = "abonne",fetch = FetchType.EAGER)
-    private List<Compte> comptes ;
+public class Abonne implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Email(message = "Username needs to be an email")
+    @NotBlank(message = "username is required")
+    @Column(unique = true)
+    private String username;
+    @NotBlank(message = "Please enter your full name")
+    private String fullName;
+    @NotBlank(message = "Password field is required")
+    private String password;
+    @Transient
+    private String confirmPassword;
+    private Date create_At;
+    private Date update_At;
+
+    //OneToMany with compte
+    @OneToMany(cascade =  CascadeType.REFRESH , fetch = FetchType.EAGER ,mappedBy = "abonne" ,orphanRemoval = true)
+    private List<Compte> comptes = new ArrayList<>();
 
     public Abonne() {
     }
 
-    public Abonne(String nom, String prenom, String password,String username) {
-        this.username = username;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.password = password;
+    public Long getId() {
+        return id;
     }
 
-    public String getNom() {
-        return nom;
+    public List<Compte> getComptes() {
+        return comptes;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
     }
 
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -60,6 +61,14 @@ public class Abonne  {
         this.username = username;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -68,19 +77,67 @@ public class Abonne  {
         this.password = password;
     }
 
-    public Collection<Compte> getComptes() {
-        return comptes;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setComptes(List<Compte> comptes) {
-        this.comptes = comptes;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
-    public Long getId() {
-        return id;
+    public Date getCreate_At() {
+        return create_At;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCreate_At(Date create_At) {
+        this.create_At = create_At;
+    }
+
+    public Date getUpdate_At() {
+        return update_At;
+    }
+
+    public void setUpdate_At(Date update_At) {
+        this.update_At = update_At;
+    }
+
+    @PrePersist
+    protected void onCreate(){
+        this.create_At = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        this.update_At = new Date();
+    }
+
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
     }
 }

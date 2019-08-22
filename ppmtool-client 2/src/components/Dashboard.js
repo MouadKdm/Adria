@@ -35,12 +35,12 @@ class Dashboard extends Component {
       numero_compte: ""
     };
   }
-  componentDidUpdate() {
-    console.log("numero compte : " + this.state.numero_compte);
-    console.log("motif : " + this.state.motif);
-    console.log("statut : " + this.state.statut);
-    console.log("debut : " + this.state.date_debut);
-    console.log("fin : " + this.state.date_fin);
+  componentDidUpdate() {}
+  //dyal componentDidUpdate
+
+  setText = e => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
     if (
       this.state.motif &&
       this.state.numero_compte.length === 0 &&
@@ -236,12 +236,6 @@ class Dashboard extends Component {
     ) {
       this.props.getProjects();
     }
-  }
-  //dyal componentDidUpdate
-
-  setText = e => {
-    e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
   };
 
   componentDidMount() {
@@ -253,7 +247,7 @@ class Dashboard extends Component {
     return (
       <div className="container">
         <h1 className="alert">
-          <div class="alert alert-primary" role="alert">
+          <div className="alert alert-primary" role="alert">
             welcome to the dashboard !
           </div>
         </h1>
@@ -262,15 +256,15 @@ class Dashboard extends Component {
         <div>
           <div>
             <h2 className="lead mt-4">
-              <div class="alert alert-primary" role="alert">
+              <div className="alert alert-primary" role="alert">
                 liste des demandes
               </div>
             </h2>
             <hr className="my-4" />
             <form className="form-inline m-4">
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault01">Motif</label>
+              <div className="form-row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="validationDefault01">Motif</label>
                   <input
                     className="form-control"
                     type="text"
@@ -280,8 +274,8 @@ class Dashboard extends Component {
                     onChange={this.setText}
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault02">Statut</label>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="validationDefault02">Statut</label>
                   <input
                     className="form-control"
                     type="text"
@@ -291,8 +285,8 @@ class Dashboard extends Component {
                     onChange={this.setText}
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefaultUsername">date debut</label>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="validationDefaultUsername">date debut</label>
                   <input
                     className="form-control"
                     type="date"
@@ -302,8 +296,8 @@ class Dashboard extends Component {
                     onChange={this.setText}
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefaultUsername">date fin</label>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="validationDefaultUsername">date fin</label>
                   <input
                     className="form-control"
                     type="date"
@@ -313,8 +307,8 @@ class Dashboard extends Component {
                     onChange={this.setText}
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefaultUsername">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="validationDefaultUsername">
                     Numero de compte
                   </label>
                   <input
@@ -331,10 +325,12 @@ class Dashboard extends Component {
           </div>
 
           <table className="table table-hover">
-            <thead className="thead-dark">
+            <thead className="table-primary">
               <tr>
+                <th scope="col">numero de demande</th>
                 <th scope="col">numero de compte</th>
                 <th scope="col">motif</th>
+                <th scope="col">date de creation</th>
                 <th scope="col">date d'execution</th>
                 <th scope="col">statut</th>
                 <th scope="col" />

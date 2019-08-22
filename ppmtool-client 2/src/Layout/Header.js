@@ -25,6 +25,13 @@ export default class Header extends Component {
             <Link to="/dashboard" className="btn">
               dashboard
             </Link>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

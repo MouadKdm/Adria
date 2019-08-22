@@ -17,7 +17,9 @@ public class Compte  {
     private Long numeroCompte ;
     private double soldeCompte ;
     private double soldeComptable ;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    private String compteLeader ;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "CODE_ABONNE")
     private Abonne abonne ;
     @JsonIgnore
@@ -27,12 +29,6 @@ public class Compte  {
     public Compte() {
     }
 
-    public Compte(Long numeroCompte, double soldeCompte, double soldeComptable,Abonne abonne) {
-        this.numeroCompte = numeroCompte;
-        this.soldeCompte = soldeCompte;
-        this.soldeComptable = soldeComptable;
-        this.abonne=abonne;
-    }
 
     public Long getId() {
         return id;
@@ -42,12 +38,36 @@ public class Compte  {
         this.id = id;
     }
 
-    public Long getNumero_compte() {
+    public Long getNumeroCompte() {
         return numeroCompte;
     }
 
-    public void setNumero_compte(Long numero_compte) {
-        this.numeroCompte = numero_compte;
+    public void setNumeroCompte(Long numeroCompte) {
+        this.numeroCompte = numeroCompte;
+    }
+
+    public double getSoldeCompte() {
+        return soldeCompte;
+    }
+
+    public void setSoldeCompte(double soldeCompte) {
+        this.soldeCompte = soldeCompte;
+    }
+
+    public double getSoldeComptable() {
+        return soldeComptable;
+    }
+
+    public void setSoldeComptable(double soldeComptable) {
+        this.soldeComptable = soldeComptable;
+    }
+
+    public String getCompteLeader() {
+        return compteLeader;
+    }
+
+    public void setCompteLeader(String compteLeader) {
+        this.compteLeader = compteLeader;
     }
 
     public Abonne getAbonne() {
@@ -58,27 +78,11 @@ public class Compte  {
         this.abonne = abonne;
     }
 
-    public Collection<Demande> getDemandes() {
+    public List<Demande> getDemandes() {
         return demandes;
     }
 
     public void setDemandes(List<Demande> demandes) {
         this.demandes = demandes;
-    }
-
-    public double getSolde_compte() {
-        return soldeCompte;
-    }
-
-    public void setSolde_compte(double solde_compte) {
-        this.soldeCompte = solde_compte;
-    }
-
-    public double getSolde_comptable() {
-        return soldeComptable;
-    }
-
-    public void setSolde_comptable(double solde_comptable) {
-        this.soldeComptable = solde_comptable;
     }
 }

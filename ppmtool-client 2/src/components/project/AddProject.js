@@ -12,7 +12,7 @@ class AddProject extends Component {
       // a supprimer
 
       compte: {},
-      statut: "",
+      statut: "enregistre",
       date_execution: "",
       motif: "",
       errors: {}
@@ -67,9 +67,9 @@ class AddProject extends Component {
                   {accounts.map(account => (
                     <option
                       value={JSON.stringify(account)}
-                      key={account.numero_compte}
+                      key={account.numeroCompte}
                     >
-                      {account.numero_compte}
+                      {account.numeroCompte}
                     </option>
                   ))}
                   <option value="-1" disabled>
@@ -93,18 +93,6 @@ class AddProject extends Component {
               </div>
             </div>
             <div className="form-row">
-              <div className="form-group col-md-6">
-                <label>statut</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputEmail4"
-                  placeholder="statut"
-                  name="statut"
-                  value={this.state.statut}
-                  onChange={this.setText}
-                />
-              </div>
               <div className="form-group col-md-6">
                 <label>motif</label>
                 <input

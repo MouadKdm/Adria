@@ -13,8 +13,10 @@ class Project extends Component {
     const demande = this.props.project;
     return (
       <tr>
-        <td>{demande.compte.numero_compte}</td>
+        <td>{demande.numero}</td>
+        <td>{demande.compte.numeroCompte}</td>
         <td>{demande.motif}</td>
+        <td>{demande.dateCreation}</td>
         <td>{demande.date_execution}</td>
         <td>{demande.statut}</td>
         <td>

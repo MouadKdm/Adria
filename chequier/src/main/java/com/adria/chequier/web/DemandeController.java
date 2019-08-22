@@ -1,20 +1,16 @@
 package com.adria.chequier.web;
 
-import com.adria.chequier.domain.Compte;
 import com.adria.chequier.domain.Demande;
-import com.adria.chequier.repositories.DemandeRepository;
 import com.adria.chequier.services.CompteService;
 import com.adria.chequier.services.DemandeService;
-import com.adria.chequier.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sun.jvm.hotspot.ui.DeadlockDetectionPanel;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +45,7 @@ public class DemandeController {
 //    }
 
     @PostMapping("/add")
-    ResponseEntity<?> CreateNewDemande (@Valid @RequestBody Demande demande , Long numero){
+    ResponseEntity<?> CreateNewDemande (@Valid @RequestBody Demande demande , Long numero, Principal principal){
         Demande demande1 = demandeService.saveOrUpdateDemande(demande);
         return new ResponseEntity<Demande>(demande1,HttpStatus.CREATED);
     }
