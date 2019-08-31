@@ -8,7 +8,10 @@ class Project extends Component {
   onDeleteClick = numero => {
     this.props.deleteDemande(numero);
   };
-
+  onDetails = numero => {
+    this.props.detailsDemande(numero);
+    const { demande } = this.props;
+  };
   render() {
     const demande = this.props.project;
     return (
@@ -23,8 +26,13 @@ class Project extends Component {
           <Link to={`/updateProject/${demande.numero}`} className="btn">
             update
           </Link>
-          <li onClick={this.onDeleteClick.bind(this, demande.numero)}>
-            <i>delete</i>
+          <li
+            className="btn btn-info btn-lg"
+            onClick={this.onDeleteClick.bind(this, demande.numero)}
+          >
+            <i className="btn btn-default">
+              <span className="glyphicon glyphicon-remove-sign" /> delete
+            </i>
           </li>
         </td>
       </tr>

@@ -25,7 +25,8 @@ public class CompteService {
     }
 
     public List<Compte> findAllComptes(String username){
-       return compteRepository.findAll();
+        Abonne abonne = abonneRepository.findByUsername(username);
+       return compteRepository.getAllByAbonne(abonne);
     }
     public Compte findCompteByNumeroCompte(Long numero){
          Compte compte =compteRepository.findByNumeroCompte(numero);

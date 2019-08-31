@@ -74,19 +74,18 @@ class UpdateProject extends Component {
         <div className="container">
           <h3>Update demande</h3>
           <hr className="mb-4" />
-          <form className="mt-5 m-4 p-4" onSubmit={this.onSubmit}>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label>Numero compte</label>
-                <input
-                  name="numero"
-                  className="form-group col-md-6"
-                  disabled
-                  value={this.state.numeroCompte}
-                  readOnly
-                />
-              </div>
-              <div className="form-group col-md-6">
+          <form className="mt-5 m-4 p-4 border" onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label>Numero compte</label>
+              <input
+                name="numero"
+                className="form-control"
+                disabled
+                value={this.state.numeroCompte}
+                readOnly
+              />
+
+              <div className="form-group ">
                 <label>date_execution</label>
                 <input
                   type="date"
@@ -99,20 +98,19 @@ class UpdateProject extends Component {
                 />
               </div>
             </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label>Date Execution</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputEmail4"
-                  placeholder="statut"
-                  name="statut"
-                  value={this.state.statut}
-                  onChange={this.setText}
-                />
-              </div>
-              <div className="form-group col-md-6">
+            <div className="form-group">
+              <label>statut</label>
+              <input
+                type="text"
+                className="form-control"
+                id="inputEmail4"
+                placeholder="statut"
+                name="statut"
+                value={this.state.statut}
+                onChange={this.setText}
+              />
+
+              <div className="form-group ">
                 <label>motif</label>
                 <input
                   type="text"
@@ -123,8 +121,8 @@ class UpdateProject extends Component {
                   onChange={this.setText}
                 />
               </div>
-              <div className="">
-                <button className="btn btn-primary">valider</button>
+              <div className="form-group">
+                <button className="btn btn-dark mt-4">valider</button>
               </div>
             </div>
           </form>

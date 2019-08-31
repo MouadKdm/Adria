@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/demande")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class DemandeController {
     @Autowired
     private DemandeService demandeService ;
@@ -46,7 +46,9 @@ public class DemandeController {
 
     @PostMapping("/add")
     ResponseEntity<?> CreateNewDemande (@Valid @RequestBody Demande demande , Long numero, Principal principal){
-        Demande demande1 = demandeService.saveOrUpdateDemande(demande);
+
+        Demande demande1 = demandeService.saveOrUpdateDemande(demande,principal.getName());
+
         return new ResponseEntity<Demande>(demande1,HttpStatus.CREATED);
     }
 
@@ -181,8 +183,11 @@ public class DemandeController {
 //        return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
 //    }
     @GetMapping("/all")
-    public ResponseEntity<?> getAllDemandes(){
-        List<Demande> demandes = demandeService.findAllDemande();
+    public ResponseEntity<?> getAllDemandes(Principal principal){
+        List<Demande> demandes = demandeService.findAllDemande(principal.getName());
+        System.out.println("hahaahaha");
+
+        System.out.println(demandes);
         return new ResponseEntity<List<Demande>>(demandes ,HttpStatus.OK);
     }
     @DeleteMapping("/delete/{numero}")

@@ -11,6 +11,7 @@ import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class DemandeService {
     @Autowired
     CompteRepository compteRepository;
 
-    public Demande saveOrUpdateDemande(Demande demande) {
+    public Demande saveOrUpdateDemande(Demande demande,String username) {
 //       try {
 
 //        Compte compte= compteRepository.findById(demande.getCompte().)
@@ -31,6 +32,8 @@ public class DemandeService {
 //        Abonne a= abonneRepository.findById(demande.getCompte().getAbonne().getId()).get();
 
 //            demande.setMotif(demande.getMotif().toUpperCase());
+        Abonne abonne = abonneRepository.findByUsername(username);
+        demande.setDemandeLeader(abonne.getUsername());
         return demandeRepository.save(demande);
 
 //        }catch (Exception e){
@@ -59,8 +62,10 @@ public class DemandeService {
         return demandes;
     }
 
-    public List<Demande> findAllDemande() {
-        List<Demande> demandes = demandeRepository.findAll();
+    public List<Demande> findAllDemande(String username) {
+        List<Compte> comptes = abonneRepository.findByUsername(username).getComptes();
+        List<Demande> demandes = new ArrayList<>();
+        comptes.forEach((compte)->demandeRepository.findByCompte(compte).forEach(demande -> demandes.add(demande)));
         return demandes;
     }
 

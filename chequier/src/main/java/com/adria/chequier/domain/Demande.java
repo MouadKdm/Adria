@@ -9,13 +9,14 @@ public  class  Demande {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numero ;
-    @Size(min=4 , max = 10 , message = "please use 4 to 10 characters")
+    @Size(min=4 , max = 20 , message = "please use 4 to 10 characters")
     private String motif ;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dateCreation=  new Date();
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date_execution ;
     private String statut ;
+    private String demandeLeader ;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "CODE_COMPTE")
     private Compte compte ;
@@ -28,6 +29,14 @@ public  class  Demande {
         this.date_execution = date_execution;
         this.statut = statut;
         this.compte = compte;
+    }
+
+    public String getDemandeLeader() {
+        return demandeLeader;
+    }
+
+    public void setDemandeLeader(String demandeLeader) {
+        this.demandeLeader = demandeLeader;
     }
 
     public String getMotif() {

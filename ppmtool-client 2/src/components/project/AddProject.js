@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
 import { getAccounts } from "../../actions/ActionComptes";
+import styles from "../../style/css/header.css";
 
 class AddProject extends Component {
   constructor() {
@@ -50,64 +51,66 @@ class AddProject extends Component {
     const { accounts } = this.props.account;
     console.log(accounts);
     return (
-      <div>
-        <div className="container">
-          <h3>Creat form</h3>
-          <hr className="mb-4" />
-          <form className="mt-5 m-4 p-4" onSubmit={this.onSubmit}>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label>Numero compte</label>
-                <select
-                  defaultValue={"-1"}
-                  name="compte"
-                  className="form-group col-md-6"
-                  onChange={this.setText}
-                >
-                  {accounts.map(account => (
-                    <option
-                      value={JSON.stringify(account)}
-                      key={account.numeroCompte}
-                    >
-                      {account.numeroCompte}
-                    </option>
-                  ))}
-                  <option value="-1" disabled>
-                    test
+      <div className="container">
+        <h3>Créer demande</h3>
+        <hr className="mb-4" />
+        <div class="input-group justify-content-center border  ">
+          <form onSubmit={this.onSubmit} className="d-flex flex-column">
+            <div className="form-group  ">
+              <label className="form-controle">Numero de compte</label>
+              <div />
+              <select
+                defaultValue={"-1"}
+                name="compte"
+                className="form-controle form-control-lg col-12  "
+                onChange={this.setText}
+              >
+                <option value="-1" disabled>
+                  choose
+                </option>
+                {accounts.map(account => (
+                  <option
+                    value={JSON.stringify(account)}
+                    key={account.numeroCompte}
+                  >
+                    {account.numeroCompte}
                   </option>
-                </select>
-                <p>{this.state.errors.statut}</p>
-              </div>
-              <div className="form-group col-md-6">
-                <label>date_execution</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id="inputPassword4"
-                  placeholder="date_execution"
-                  name="date_execution"
-                  value={this.state.date_execution}
-                  onChange={this.setText}
-                />
-                <p>{this.state.errors.date_execution}</p>
-              </div>
+                ))}
+              </select>
+              <p>{this.state.errors.statut}</p>
             </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label>motif</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputPassword4"
-                  name="motif"
-                  value={this.state.motif}
-                  onChange={this.setText}
-                />
-                <p>{this.state.errors.motif}</p>
-              </div>
-              <div className="d-flex justify-content-end">
-                <button className="btn btn-primary">valider</button>
-              </div>
+            <div className="form-group p-2">
+              <label>Date d'execution</label>
+
+              <input
+                type="date"
+                className="form-control form-control-lg "
+                id="inputPassword4"
+                placeholder="date_execution"
+                name="date_execution"
+                value={this.state.date_execution}
+                onChange={this.setText}
+              />
+
+              <p>{this.state.errors.date_execution}</p>
+            </div>
+
+            <div className="form-group p-2">
+              <label>motif</label>
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                id="inputPassword4"
+                name="motif"
+                value={this.state.motif}
+                onChange={this.setText}
+              />
+              <p>{this.state.errors.motif}</p>
+            </div>
+            <div class="form-group p-2">
+              <button type="submit" className="btn btn-dark ">
+                Créer
+              </button>
             </div>
           </form>
         </div>

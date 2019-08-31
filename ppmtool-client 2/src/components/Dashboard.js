@@ -35,131 +35,116 @@ class Dashboard extends Component {
       numero_compte: ""
     };
   }
-  componentDidUpdate() {}
-  //dyal componentDidUpdate
-
-  setText = e => {
+  onSubmit = e => {
     e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
     if (
       this.state.motif &&
-      this.state.numero_compte.length === 0 &&
-      this.state.statut.length === 0 &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0
+      this.state.numero_compte === "" &&
+      this.state.statut === "" &&
+      this.state.date_debut === "" &&
+      this.state.date_fin === ""
     ) {
       this.props.fetchDemandeByMotif(this.state.motif);
-    }
-
-    if (
+    } else if (
       this.state.numero_compte &&
-      this.state.motif.length === 0 &&
-      this.state.statut.length === 0 &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0
+      this.state.motif === "" &&
+      this.state.statut === "" &&
+      this.state.date_debut === "" &&
+      this.state.date_fin === ""
     ) {
       this.props.fetchDemandeByNumeroCompte(this.state.numero_compte);
-    }
-    if (
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0 &&
-      this.state.motif.length === 0 &&
+    } else if (
+      this.state.date_debut === "" &&
+      this.state.date_fin === "" &&
+      this.state.motif === "" &&
       this.state.statut &&
-      this.state.numero_compte.length === 0
+      this.state.numero_compte === ""
     ) {
       this.props.fetchDemandesByStatut(this.state.statut);
-    }
-    if (
+    } else if (
       this.state.date_debut &&
       this.state.date_fin &&
-      this.state.motif.length === 0 &&
-      this.state.statut.length === 0 &&
-      this.state.numero_compte.length === 0
+      this.state.motif === "" &&
+      this.state.statut === "" &&
+      this.state.numero_compte === ""
     ) {
       this.props.fetchDemandesByDateCreation(
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.motif &&
       this.state.numero_compte &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0 &&
-      this.state.statut.length === 0
+      this.state.date_debut === "" &&
+      this.state.date_fin === "" &&
+      this.state.statut === ""
     ) {
       this.props.fetchDemandesByNumeroCompteAndMotif(
         this.state.numero_compte,
         this.state.motif
       );
-    }
-    if (
+    } else if (
       this.state.motif &&
       this.state.statut &&
-      this.state.numero_compte.length === 0 &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0
+      this.state.numero_compte === "" &&
+      this.state.date_debut === "" &&
+      this.state.date_fin === ""
     ) {
       this.props.fetchDemandesByMotifAndStatut(
         this.state.motif,
         this.state.statut
       );
-    }
-    if (
+    } else if (
       this.state.motif &&
       this.state.date_debut &&
       this.state.date_fin &&
-      this.state.statut.length === 0 &&
-      this.state.numero_compte.length === 0
+      this.state.statut === "" &&
+      this.state.numero_compte === ""
     ) {
       this.props.fetchDemandesByMotifAndDateCreation(
         this.state.motif,
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
       this.state.statut &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0 &&
-      this.state.motif.length === 0
+      this.state.date_debut === "" &&
+      this.state.date_fin === "" &&
+      this.state.motif === ""
     ) {
       this.props.fetchDemandesByCompteAndStatut(
         this.state.numero_compte,
         this.state.statut
       );
-    }
-    if (
+    } else if (
       this.state.statut &&
       this.state.date_debut &&
       this.state.date_fin &&
-      this.state.motif.length === 0 &&
-      this.state.numero_compte.length === 0
+      this.state.motif === "" &&
+      this.state.numero_compte === ""
     ) {
       this.props.fetchDemandesByStatutAndDateCreation(
         this.state.statut,
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
       this.state.date_debut &&
       this.state.date_fin &&
-      this.state.statut.length === 0 &&
-      this.state.motif.length === 0
+      this.state.statut === "" &&
+      this.state.motif === ""
     ) {
       this.props.fetchDemandesByCompteAndDateCreation(
         this.state.numero_compte,
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0 &&
+      this.state.date_debut === "" &&
+      this.state.date_fin === "" &&
       this.state.statut &&
       this.state.motif
     ) {
@@ -168,9 +153,8 @@ class Dashboard extends Component {
         this.state.motif,
         this.state.statut
       );
-    }
-    if (
-      this.state.numero_compte.length === 0 &&
+    } else if (
+      this.state.numero_compte === "" &&
       this.state.date_debut &&
       this.state.date_fin &&
       this.state.statut &&
@@ -182,12 +166,11 @@ class Dashboard extends Component {
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
       this.state.date_debut &&
       this.state.date_fin &&
-      this.state.statut.length === 0 &&
+      this.state.statut === "" &&
       this.state.motif
     ) {
       this.props.fetchDemandesByCompteMotifAndDateCreation(
@@ -196,13 +179,12 @@ class Dashboard extends Component {
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
       this.state.date_debut &&
       this.state.date_fin &&
       this.state.statut &&
-      this.state.motif.length === 0
+      this.state.motif === ""
     ) {
       this.props.fetchDemandesByCompteStatutAndDateCreation(
         this.state.numero_compte,
@@ -210,8 +192,7 @@ class Dashboard extends Component {
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-    if (
+    } else if (
       this.state.numero_compte &&
       this.state.date_debut &&
       this.state.date_fin &&
@@ -225,17 +206,23 @@ class Dashboard extends Component {
         this.state.date_debut,
         this.state.date_fin
       );
-    }
-
-    if (
-      this.state.motif.length === 0 &&
-      this.state.numero_compte.length === 0 &&
-      this.state.date_debut.length === 0 &&
-      this.state.date_fin.length === 0 &&
-      this.state.statut.length === 0
+    } else if (
+      this.state.motif === "" &&
+      this.state.numero_compte === "" &&
+      this.state.date_debut === "" &&
+      this.state.date_fin === "" &&
+      this.state.statut === ""
     ) {
       this.props.getProjects();
     }
+  };
+
+  setText = e => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.value);
+
+    console.log(this.state);
   };
 
   componentDidMount() {
@@ -245,10 +232,10 @@ class Dashboard extends Component {
   render() {
     const { projects } = this.props.project;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <h1 className="alert">
-          <div className="alert alert-primary" role="alert">
-            welcome to the dashboard !
+          <div className="alert alert-dark" role="alert">
+            Adria Business & Technology
           </div>
         </h1>
         <CreateProjectButton />
@@ -256,12 +243,12 @@ class Dashboard extends Component {
         <div>
           <div>
             <h2 className="lead mt-4">
-              <div className="alert alert-primary" role="alert">
+              <div className="alert alert-dark" role="alert">
                 liste des demandes
               </div>
             </h2>
             <hr className="my-4" />
-            <form className="form-inline m-4">
+            <form className="form-inline m-4" onSubmit={this.onSubmit}>
               <div className="form-row">
                 <div className="col-md-4 mb-3">
                   <label htmlFor="validationDefault01">Motif</label>
@@ -276,14 +263,14 @@ class Dashboard extends Component {
                 </div>
                 <div className="col-md-4 mb-3">
                   <label htmlFor="validationDefault02">Statut</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                  <select
+                    defaultValue={"-1"}
                     name="statut"
-                    placeholder="statut"
-                    value={this.state.statut}
                     onChange={this.setText}
-                  />
+                  >
+                    <option value="">choose</option>
+                    <option value="enregistre">enregistre</option>
+                  </select>
                 </div>
                 <div className="col-md-4 mb-3">
                   <label htmlFor="validationDefaultUsername">date debut</label>
@@ -319,13 +306,14 @@ class Dashboard extends Component {
                     value={this.state.numero_compte}
                     onChange={this.setText}
                   />
+                  <button className="btn btn-dark">Search</button>
                 </div>
               </div>
             </form>
           </div>
 
           <table className="table table-hover">
-            <thead className="table-primary">
+            <thead className="table-dark">
               <tr>
                 <th scope="col">numero de demande</th>
                 <th scope="col">numero de compte</th>

@@ -4,6 +4,7 @@ import {
   GET_PROJECTS,
   GET_DEMANDE,
   DELETE_DEMANDE,
+  DETAILS_DEMANDE,
   FETCH_DEMANDE,
   FETCH_DEMANDE_NUMERO_COMPTE,
   FETCH_DEMANDE_DATE_CREATION,
@@ -51,6 +52,7 @@ export const getDemandeByMotif = (numero, history) => async dispatch => {
     payload: res.data
   });
 };
+
 export const deleteDemande = numero => async dispatch => {
   await axios.delete(`http://localhost:8080/demande/delete/${numero}`);
 

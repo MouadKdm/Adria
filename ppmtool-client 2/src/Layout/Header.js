@@ -1,40 +1,97 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "../style/css/header.css";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logout } from "../actions/securityAction";
+import logo from "./Adria-logo-1.png";
 
-export default class Header extends Component {
+class Header extends Component {
+  logout() {
+    this.props.logout();
+    window.location.href = "/";
+  }
   render() {
-    return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link to="/dashboard" className="navbar-brand">
-          dashboard
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <Link to="/dashboard" className="btn">
-              dashboard
+    const { validToken, user } = this.props.security;
+
+    const userIsAuthenticated = (
+      <div className="collapse navbar-collapse" id="mobile-nav">
+        <ul className="navbar-nav mr-auto">
+          <Link className="navbar-brand" to="/dashboard">
+            <img src={logo} alt="Logo" width="150" />
+          </Link>
+        </ul>
+
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/dashboard">
+              <i className="fas fa-user-circle mr-1" />
+              {user.fullName}
             </Link>
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-            </ul>
-          </div>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/logout"
+              onClick={this.logout.bind(this)}
+            >
+              Logout
+            </Link>
+          </li>
+        </ul>
+      </div>
+    );
+
+    const userIsNotAuthenticated = (
+      <div className="collapse navbar-collapse" id="mobile-nav">
+        <Link className="navbar-brand" to="/">
+          <img src={logo} alt="Logo" width="150" />
+        </Link>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
+          </li>
+        </ul>
+      </div>
+    );
+
+    let headerLinks;
+
+    if (validToken && user) {
+      headerLinks = userIsAuthenticated;
+    } else {
+      headerLinks = userIsNotAuthenticated;
+    }
+
+    return (
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <div className="container">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          {headerLinks}
         </div>
       </nav>
     );
   }
 }
+
+Header.propTypes = {
+  logout: PropTypes.func.isRequired,
+  security: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  security: state.security
+});
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Header);

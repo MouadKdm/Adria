@@ -1,15 +1,20 @@
 package com.adria.chequier.repositories;
 
+import com.adria.chequier.domain.Abonne;
 import com.adria.chequier.domain.Compte;
 import com.adria.chequier.domain.Demande;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+@Repository
+@RepositoryRestResource
 
 public interface DemandeRepository extends CrudRepository<Demande,Long> {
     Demande findByNumero(Long id );
-    List<Demande> findAll();
+//    List<Demande> findAllByDemandeLeader(Abonne abonne);
 
     //Find by one param
     List<Demande> findByMotif(String motif);
