@@ -24,7 +24,7 @@ import { async } from "q";
 
 export const createProject = (project, history) => async dispatch => {
   try {
-    const res = await axios.post("http://localhost:8080/demande/add", project);
+    const res = await axios.post("http://localhost:8081/demande/add", project);
     history.push("/dashboard");
   } catch (error) {
     dispatch({
@@ -36,7 +36,7 @@ export const createProject = (project, history) => async dispatch => {
 
 export const getProjects = () => async dispatch => {
   try {
-    const res = await axios.get("http://localhost:8080/demande/all");
+    const res = await axios.get("http://localhost:8081/demande/all");
     dispatch({
       type: GET_PROJECTS,
       payload: res.data
@@ -45,7 +45,7 @@ export const getProjects = () => async dispatch => {
 };
 
 export const getDemandeByMotif = (numero, history) => async dispatch => {
-  const res = await axios.get(`http://localhost:8080/demande/id/${numero}`);
+  const res = await axios.get(`http://localhost:8081/demande/id/${numero}`);
 
   dispatch({
     type: GET_DEMANDE,
@@ -54,7 +54,7 @@ export const getDemandeByMotif = (numero, history) => async dispatch => {
 };
 
 export const deleteDemande = numero => async dispatch => {
-  await axios.delete(`http://localhost:8080/demande/delete/${numero}`);
+  await axios.delete(`http://localhost:8081/demande/delete/${numero}`);
 
   dispatch({
     type: DELETE_DEMANDE,
@@ -63,7 +63,7 @@ export const deleteDemande = numero => async dispatch => {
 };
 
 export const fetchDemandeByMotif = motif => async dispatch => {
-  const res = await axios.get(`http://localhost:8080/demande/motif/${motif}`);
+  const res = await axios.get(`http://localhost:8081/demande/motif/${motif}`);
   dispatch({
     type: FETCH_DEMANDE,
     payload: res.data
@@ -71,7 +71,7 @@ export const fetchDemandeByMotif = motif => async dispatch => {
 };
 export const fetchDemandeByNumeroCompte = numero => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/numero_compte/${numero}`
+    `http://localhost:8081/demande/numero_compte/${numero}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE,
@@ -79,7 +79,7 @@ export const fetchDemandeByNumeroCompte = numero => async dispatch => {
   });
 };
 export const fetchDemandesByStatut = statut => async dispatch => {
-  const res = await axios.get(`http://localhost:8080/demande/statut/${statut}`);
+  const res = await axios.get(`http://localhost:8081/demande/statut/${statut}`);
   dispatch({
     type: FETCH_DEMANDE_STATUT,
     payload: res.data
@@ -87,7 +87,7 @@ export const fetchDemandesByStatut = statut => async dispatch => {
 };
 export const fetchDemandesByDateCreation = (date, date1) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/dateCreation/${date}/${date1}`
+    `http://localhost:8081/demande/dateCreation/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_DATE_CREATION,
@@ -99,7 +99,7 @@ export const fetchDemandesByNumeroCompteAndMotif = (
   motif
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/motif/${numero_compte}/${motif}`
+    `http://localhost:8081/demande/compte/motif/${numero_compte}/${motif}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE_MOTIF,
@@ -112,7 +112,7 @@ export const fetchDemandesByMotifAndStatut = (
   statut
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/motif/statut/${motif}/${statut}`
+    `http://localhost:8081/demande/motif/statut/${motif}/${statut}`
   );
   dispatch({
     type: FETCH_DEMANDE_MOTIF_STATUT,
@@ -126,7 +126,7 @@ export const fetchDemandesByMotifAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/motif/dateCreation/${motif}/${date}/${date1}`
+    `http://localhost:8081/demande/motif/dateCreation/${motif}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_MOTIF_DATE_CREATION,
@@ -139,7 +139,7 @@ export const fetchDemandesByCompteAndStatut = (
   statut
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/statut/${numero_compte}/${statut}`
+    `http://localhost:8081/demande/compte/statut/${numero_compte}/${statut}`
   );
   dispatch({
     type: FETCH_DEMANDE_MOTIF_DATE_CREATION,
@@ -153,7 +153,7 @@ export const fetchDemandesByStatutAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/statut/dateCreation/${statut}/${date}/${date1}`
+    `http://localhost:8081/demande/statut/dateCreation/${statut}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_STATUT_DATE_CREATION,
@@ -167,7 +167,7 @@ export const fetchDemandesByCompteAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/dateCreation/${numero_compte}/${date}/${date1}`
+    `http://localhost:8081/demande/compte/dateCreation/${numero_compte}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE_DATE_CREATION,
@@ -183,7 +183,7 @@ export const fetchDemandesByCompteAndMotifAndStatut = (
   statut
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/motif/statut/${numero_compte}/${motif}/${statut}`
+    `http://localhost:8081/demande/compte/motif/statut/${numero_compte}/${motif}/${statut}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE_MOTIF_STATUT,
@@ -198,7 +198,7 @@ export const fetchDemandesByMotifAndStatutAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/motif/statut/dateCreation/${motif}/${statut}/${date}/${date1}`
+    `http://localhost:8081/demande/motif/statut/dateCreation/${motif}/${statut}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_MOTIF_STATUT_DATE_CREATION,
@@ -213,7 +213,7 @@ export const fetchDemandesByCompteMotifAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/motif/dateCreation/${numero_compte}/${motif}/${date}/${date1}`
+    `http://localhost:8081/demande/compte/motif/dateCreation/${numero_compte}/${motif}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE_MOTIF_DATE_CREATION,
@@ -228,7 +228,7 @@ export const fetchDemandesByCompteStatutAndDateCreation = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/compte/statut/dateCreation/${numero_compte}/${statut}/${date}/${date1}`
+    `http://localhost:8081/demande/compte/statut/dateCreation/${numero_compte}/${statut}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_NUMERO_COMPTE_STATUT_DATE_CREATION,
@@ -244,7 +244,7 @@ export const fetchDemandesByAllParams = (
   date1
 ) => async dispatch => {
   const res = await axios.get(
-    `http://localhost:8080/demande/allParams/${numero_compte}/${motif}/${statut}/${date}/${date1}`
+    `http://localhost:8081/demande/allParams/${numero_compte}/${motif}/${statut}/${date}/${date1}`
   );
   dispatch({
     type: FETCH_DEMANDE_ALL_PARAMS,
