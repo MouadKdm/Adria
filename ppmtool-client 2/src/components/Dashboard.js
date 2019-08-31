@@ -264,6 +264,7 @@ class Dashboard extends Component {
                 <div className="col-md-4 mb-3">
                   <label htmlFor="validationDefault02">Statut</label>
                   <select
+                    className="form-control"
                     defaultValue={"-1"}
                     name="statut"
                     onChange={this.setText}
