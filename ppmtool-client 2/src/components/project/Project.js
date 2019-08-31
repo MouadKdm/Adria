@@ -24,15 +24,13 @@ class Project extends Component {
         <td>{demande.statut}</td>
         <td>
           <Link to={`/updateProject/${demande.numero}`} className="btn">
-            update
+            <i className="btn btn-dark"> update</i>
           </Link>
           <li
-            className="btn btn-info btn-lg"
+            className="btn  btn-lg"
             onClick={this.onDeleteClick.bind(this, demande.numero)}
           >
-            <i className="btn btn-default">
-              <span className="glyphicon glyphicon-remove-sign" /> delete
-            </i>
+            <i className="btn btn-dark">delete</i>
           </li>
         </td>
       </tr>
